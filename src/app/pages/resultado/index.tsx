@@ -1,44 +1,52 @@
-// import React from 'react';
-// import { View, Text, StyleSheet, Button } from 'react-native';
-// import { useNavigation, useRoute} from '@react-navigation/native';
-// import { router, SearchParams} from 'expo-router';
+import React from 'react';
+import { View, Text, StyleSheet, Button } from 'react-native';
+import { useRoute } from '@react-navigation/native';
+import { router } from 'expo-router';
 
-// export default function ResultadosScreen() {
-//   const navigation = useNavigation();
-//   const route = useRoute();
-// //   const { contador } = route.params; // Recebe os dados do contador via parâmetros de navegação
-//     const { pontos, celula1, celula2, celula3, celula4, celula5, celula6 } = useSearchParams();
 
-//   const goToHome = () => {
-//     router.push("../../")
+interface RouteParams {
+    pontos: number;
+    celula1: number;
+    celula2: number;
+    celula3: number;
+    celula4: number;
+    celula5: number;
+    celula6: number;
+  }
 
-//   };
+export default function Resultado() {
+  const route = useRoute();
+  const { pontos, celula1, celula2, celula3, celula4, celula5, celula6 } = route.params as RouteParams;// Garantindo que os parâmetros existam
 
-//   return (
-//     <View style={styles.container}>
-//       <Text style={styles.title}>Resultados</Text>
-//       <Text>Pontos: {contador.pontos}</Text>
-//       <Text>Célula 1: {contador.celula1}</Text>
-//       <Text>Célula 2: {contador.celula2}</Text>
-//       <Text>Célula 3: {contador.celula3}</Text>
-//       <Text>Célula 4: {contador.celula4}</Text>
-//       <Text>Célula 5: {contador.celula5}</Text>
-//       <Text>Célula 6: {contador.celula6}</Text>
+  const goToHome = () => {
+    router.push("../../");
+  };
 
-//       <Button title="Voltar para o início" onPress={goToHome} />
-//     </View>
-//   );
-// }
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Resultados</Text>
+      <Text>Pontos: {pontos}</Text>
+      <Text>Célula 1: {celula1}</Text>
+      <Text>Célula 2: {celula2}</Text>
+      <Text>Célula 3: {celula3}</Text>
+      <Text>Célula 4: {celula4}</Text>
+      <Text>Célula 5: {celula5}</Text>
+      <Text>Célula 6: {celula6}</Text>
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//     padding: 20,
-//   },
-//   title: {
-//     fontSize: 24,
-//     marginBottom: 20,
-//   },
-// });
+      <Button title="Voltar para o início" onPress={goToHome} />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+  title: {
+    fontSize: 24,
+    marginBottom: 20,
+  },
+});
