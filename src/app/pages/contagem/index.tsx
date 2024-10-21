@@ -4,87 +4,23 @@ import { router} from 'expo-router';
 import Zoom from 'react-native-zoom-reanimated';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 // import { style } from './styles';
+import { Contador } from '../../components/contador';
 
-export type Contador = {
-  pontos: number,
-  celula1: number,
-  celula2: number,
-  celula3: number,
-  celula4: number,
-  celula5: number,
-  celula6: number,
-}
 
-export interface ContadorProps {
-  onFinish: (contador: Contador) => void
-}
 
-export default function Contador() {
-  const [ contador, setContador ] = React.useState<Contador>({
-    pontos: 0,
-    celula1: 0,
-    celula2: 0,
-    celula3: 0,
-    celula4: 0,
-    celula5: 0,
-    celula6: 0,
-})
+export default function Contagem() {
 
-  const goToHome = () => {
-    router.push("../../")
-
-  };
-
-  const handleFinish = () => {
-    router.push({
-      pathname: '/resultados',
-      params: {
-        pontos: contador.pontos,
-        celula1: contador.celula1,
-        celula2: contador.celula2,
-        celula3: contador.celula3,
-        celula4: contador.celula4,
-        celula5: contador.celula5,
-        celula6: contador.celula6,
-      },
-    });
-  };
-
-  // Função para incrementar o contador
-  const adicionar = async (celula:'tipo1'|'tipo2'|'tipo3'|'tipo4'|'tipo5'|'tipo6') => {
-    //Busca os valores atuais do estado
-    let { pontos, celula1, celula2, celula3, celula4, celula5, celula6 } = contador;
-
-    if (celula == 'tipo1') {
-        celula1++
-    } 
-    else if (celula == 'tipo2') 
-    {
-        celula2++
-    } 
-    else if (celula == 'tipo3') 
-    {
-        celula3++
-    } 
-    else if (celula == 'tipo4') 
-    {
-        celula4++
-    } 
-    else if (celula == 'tipo5') 
-    {
-        celula5++
-    } 
-    else
-    {
-        celula6++
-    } 
-
-    pontos ++
-
-    //Atualiza os valores
-    setContador({ pontos, celula1, celula2, celula3, celula4, celula5, celula6 })
+  const handleFinish = (contador: Contador) => {
+    Alert.alert('Resultado', `
+        Pontos: ${contador.pontos}
+        Celula 1: ${contador.celula1}
+        Celula 2: ${contador.celula2}
+        Celula 3: ${contador.celula3}
+        Celula 4: ${contador.celula4}
+        Celula 5: ${contador.celula5}
+        Celula 6: ${contador.celula6}
+        `)
   }
-
 
   return (
     <GestureHandlerRootView>
@@ -113,80 +49,8 @@ export default function Contador() {
 
         </View>
 
-        <Text style={style.contadorText}>Contador: {contador.pontos}</Text>
+        <Contador onFinish={handleFinish}/>
 
-        <View style={style.buttons_container}>
-          
-          <TouchableOpacity 
-              style={[style.buttons, contador.pontos >= 100 && { opacity: 0.5 }]}
-              onPress={() => adicionar('tipo1')}
-              disabled={contador.pontos >= 100}
-          >
-            <Text>cel 01</Text>
-
-          </TouchableOpacity>
-
-          <TouchableOpacity 
-              style={[style.buttons, contador.pontos >= 100 && { opacity: 0.5 }]}
-              onPress={() => adicionar('tipo2')}
-              disabled={contador.pontos >= 100}
-          >
-            <Text>cel 02</Text>
-
-          </TouchableOpacity>
-
-          <TouchableOpacity 
-              style={[style.buttons, contador.pontos >= 100 && { opacity: 0.5 }]}
-              onPress={() => adicionar('tipo3')}
-              disabled={contador.pontos >= 100}
-          >
-            <Text>cel 03</Text>
-
-          </TouchableOpacity>
-
-
-          <TouchableOpacity 
-              style={[style.buttons, contador.pontos >= 100 && { opacity: 0.5 }]}
-              onPress={() => adicionar('tipo4')}
-              disabled={contador.pontos >= 100}
-          >
-            <Text>cel 04</Text>
-
-          </TouchableOpacity>
-
-          <TouchableOpacity 
-              style={[style.buttons, contador.pontos >= 100 && { opacity: 0.5 }]}
-              onPress={() => adicionar('tipo5')}
-              disabled={contador.pontos >= 100}
-          >
-            <Text>cel 05</Text>
-
-          </TouchableOpacity>
-
-
-          <TouchableOpacity 
-              style={[style.buttons, contador.pontos >= 100 && { opacity: 0.5 }]}
-              onPress={() => adicionar('tipo6')}
-              disabled={contador.pontos >= 100}
-          >
-            <Text>cel 06</Text>
-
-          </TouchableOpacity>
-
-
-        </View>
-
-        <View style={style.actions_container}>
-
-          <TouchableOpacity style={[style.actions, contador.pontos < 100 && { opacity: 0.5 }]} disabled={contador.pontos < 100} onPress={handleFinish}>
-            <Text>Finalizar</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={style.actions}  onPress={goToHome}>
-            <Text>Voltar</Text>
-          </TouchableOpacity>
-
-        </View>
 
       </View>
 
@@ -208,6 +72,8 @@ const style = StyleSheet.create({
     gap: 10,
   },
 
+  
+
   imageContainer:{
     marginTop: 40,
     borderRadius: 25,
@@ -225,6 +91,19 @@ const style = StyleSheet.create({
     // backgroundColor: 'green',
   },
 
+  contadorContainer: {
+    height: '60%',
+    width: '100%',
+    // backgroundColor: 'grey',
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 20,
+    padding: 5,
+
+  },
+
   contadorText: {
     textAlign: 'center',
     height: '5%',
@@ -233,9 +112,10 @@ const style = StyleSheet.create({
     // backgroundColor: 'purple',
   },
 
+  
   buttons_container: {
     // position: 'relative',
-    padding: '5%',
+    padding: '2%',
     display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -243,14 +123,14 @@ const style = StyleSheet.create({
     justifyContent: 'center',
     // alignItems: 'flex-end',
     alignContent: 'center',
-    height: '25%',
-    width: '90%',
+    height: '55%',
+    width: '80%',
     // backgroundColor: 'green',
   },
 
   buttons: {
-    height: '30%',
-    width: '40%',
+    height: '23%',
+    width: '45%',
     backgroundColor: '#86fa8f',
     display: 'flex',
     alignItems: 'center',
@@ -263,7 +143,7 @@ const style = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-evenly',
-    height: '10%',
+    height: '15%',
     width: '100%',
     marginTop: 'auto',
     marginBottom: 20,
