@@ -3,6 +3,8 @@ import { Icon } from '@rneui/themed';
 import { router} from 'expo-router';
 import { style } from "./styles";
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+// import { Imagem, useImageService } from '../services/imagens';
+// import { useLaminaservice } from '../app/service/laminas';
 
 import { 
 
@@ -21,8 +23,13 @@ export default function App() {
 
   };
 
+  const handleTeste = () => {
+    router.push("/service/laminas")
+  };
+
   return (
     <GestureHandlerRootView>
+      
       <View style={style.body}>
 
         <View style={style.top_container}>
@@ -53,7 +60,7 @@ export default function App() {
               <TouchableOpacity 
                 
                 style={style.button}
-                onPress={handlePress}
+                onPress={handleTeste}
                 >
 
                 <Text>Atlas</Text>
@@ -92,7 +99,7 @@ export default function App() {
             <View style={style.button_div}>
 
               <TouchableOpacity style={style.button} onPress={handlePress}>
-                <Text>Sair</Text>
+                
 
               </TouchableOpacity>
 
