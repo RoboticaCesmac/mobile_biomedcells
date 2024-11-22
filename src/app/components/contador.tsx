@@ -6,12 +6,12 @@ import { router} from 'expo-router';
 // DEFINE A ESTRUTURA DO CONTADOR
 export type Contador = {
     pontos: number,
-    celula1: number,
-    celula2: number,
-    celula3: number,
-    celula4: number,
-    celula5: number,
-    celula6: number,
+    neutrofilos: number,
+    monocitos: number,
+    eosilofilos: number,
+    basofilos: number,
+    linfocitos_t: number,
+    linfocitos_a: number,
 }
 
 //AO FINALIZAR A CONTAGEM RETORNA OS DADOS
@@ -23,49 +23,49 @@ export function Contador ({onFinish}: ContadorProps) {
 
     const [ contador, setContador ] = React.useState<Contador>({
         pontos: 0,
-        celula1: 0,
-        celula2: 0,
-        celula3: 0,
-        celula4: 0,
-        celula5: 0,
-        celula6: 0
+        neutrofilos: 0,
+        monocitos: 0,
+        eosilofilos: 0,
+        basofilos: 0,
+        linfocitos_t: 0,
+        linfocitos_a: 0
     })
     // -----------------------------------------------
     const adicionar = async (celula:'tipo1'|'tipo2'|'tipo3'|'tipo4'|'tipo5'|'tipo6') => {
         //Busca os valores atuais do estado
-        let { pontos, celula1, celula2, celula3, celula4, celula5, celula6 } = contador;
+        let { pontos, neutrofilos, monocitos, eosilofilos, basofilos, linfocitos_t, linfocitos_a } = contador;
     
         if (celula == 'tipo1') {
-            celula1++
+            neutrofilos++
         } 
         else if (celula == 'tipo2') 
         {
-            celula2++
+            monocitos++
         } 
         else if (celula == 'tipo3') 
         {
-            celula3++
+            eosilofilos++
         } 
         else if (celula == 'tipo4') 
         {
-            celula4++
+            basofilos++
         } 
         else if (celula == 'tipo5') 
         {
-            celula5++
+            linfocitos_t++
         } 
         else
         {
-            celula6++
+            linfocitos_a++
         } 
     
         pontos ++
     
         //Atualiza os valores
-        setContador({ pontos, celula1, celula2, celula3, celula4, celula5, celula6 })
+        setContador({ pontos, neutrofilos, monocitos, eosilofilos, basofilos, linfocitos_t, linfocitos_a })
     }
     // --------
-    const resetar = () => setContador({pontos: 0, celula1: 0, celula2: 0, celula3: 0, celula4: 0, celula5: 0, celula6: 0})
+    const resetar = () => setContador({pontos: 0, neutrofilos: 0, monocitos: 0, eosilofilos: 0, basofilos: 0, linfocitos_t: 0, linfocitos_a: 0})
 
     const goToHome = () => {
       router.push("../../")
@@ -77,36 +77,21 @@ export function Contador ({onFinish}: ContadorProps) {
         pathname: '../../pages/resultado/',
         params: {
           pontos: contador.pontos,
-          celula1: contador.celula1,
-          celula2: contador.celula2,
-          celula3: contador.celula3,
-          celula4: contador.celula4,
-          celula5: contador.celula5,
-          celula6: contador.celula6,
+          neutrofilos: contador.neutrofilos,
+          monocitos: contador.monocitos,
+          eosilofilos: contador.eosilofilos,
+          basofilos: contador.basofilos,
+          linfocitos_t: contador.linfocitos_t,
+          linfocitos_a: contador.linfocitos_a,
         },
       });
     };
 
-    // const handleFinish = () => {
-
-    //   // onFinish(contador);
-    //   Alert.alert('Resultado', `
-    //       Pontos: ${contador.pontos}
-    //       Celula 1: ${contador.celula1}
-    //       Celula 2: ${contador.celula2}
-    //       Celula 3: ${contador.celula3}
-    //       Celula 4: ${contador.celula4}
-    //       Celula 5: ${contador.celula5}
-    //       Celula 6: ${contador.celula6}
-    //       `)
-    // };
-
-    // -----------------------------------------------
     return (
 
       <View style={style.contadorContainer}>
 
-          <Text style={style.contadorText}>Contador: {contador.pontos}</Text>
+          <Text style={style.contadorText}>Total: {contador.pontos}</Text>
 
           <View style={style.buttons_container}>
             
@@ -115,7 +100,7 @@ export function Contador ({onFinish}: ContadorProps) {
                 onPress={() => adicionar('tipo1')}
                 disabled={contador.pontos >= 100}
             >
-              <Text>cel 01</Text>
+              <Text>Neutrofilos</Text>
 
             </TouchableOpacity>
 
@@ -124,7 +109,7 @@ export function Contador ({onFinish}: ContadorProps) {
                 onPress={() => adicionar('tipo2')}
                 disabled={contador.pontos >= 100}
             >
-              <Text>cel 02</Text>
+              <Text>Monocitos</Text>
 
             </TouchableOpacity>
 
@@ -133,7 +118,7 @@ export function Contador ({onFinish}: ContadorProps) {
                 onPress={() => adicionar('tipo3')}
                 disabled={contador.pontos >= 100}
             >
-              <Text>cel 03</Text>
+              <Text>Eosilofilos</Text>
 
             </TouchableOpacity>
 
@@ -143,7 +128,7 @@ export function Contador ({onFinish}: ContadorProps) {
                 onPress={() => adicionar('tipo4')}
                 disabled={contador.pontos >= 100}
             >
-              <Text>cel 04</Text>
+              <Text>Basofilos</Text>
 
             </TouchableOpacity>
 
@@ -152,7 +137,7 @@ export function Contador ({onFinish}: ContadorProps) {
                 onPress={() => adicionar('tipo5')}
                 disabled={contador.pontos >= 100}
             >
-              <Text>cel 05</Text>
+              <Text>Linf. T</Text>
 
             </TouchableOpacity>
 
@@ -162,7 +147,7 @@ export function Contador ({onFinish}: ContadorProps) {
                 onPress={() => adicionar('tipo6')}
                 disabled={contador.pontos >= 100}
             >
-              <Text>cel 06</Text>
+              <Text>Linf. A</Text>
 
             </TouchableOpacity>
 
@@ -171,7 +156,7 @@ export function Contador ({onFinish}: ContadorProps) {
 
           <View style={style.actions_container}>
 
-            <TouchableOpacity style={[style.actions, contador.pontos < 100 && { opacity: 0.5 }]} disabled={contador.pontos < 100} onPress={handleFinish}>
+            <TouchableOpacity style={[style.actions, contador.pontos < 100 && { opacity: 0.5 }]} disabled={contador.pontos < 100} onPress={() => onFinish(contador)} >
               <Text>Finalizar</Text>
             </TouchableOpacity>
 
@@ -203,9 +188,11 @@ const style = StyleSheet.create({
 
   contadorText: {
     textAlign: 'center',
-    height: '5%',
+    height: '10%',
     width: '50%',
-    fontSize: 20,
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#fff',
     // backgroundColor: 'purple',
   },
 
@@ -233,6 +220,12 @@ const style = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 10,
+    shadowColor: '#000',        
+    shadowOffset: { width: 0, height: 2 }, 
+    shadowOpacity: 0.2,         
+    shadowRadius: 4,            
+    elevation: 4,       
+    
   },
 
   actions_container: {
@@ -255,6 +248,12 @@ const style = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 10,
+    
+    shadowColor: '#000',        
+    shadowOffset: { width: 0, height: 2 }, 
+    shadowOpacity: 0.2,         
+    shadowRadius: 4,            
+    elevation: 4,
   },
 
 });

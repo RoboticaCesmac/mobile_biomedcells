@@ -1,31 +1,85 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, Button, Image, StyleSheet, TouchableOpacity, ScrollView, Dimensions, Alert } from 'react-native';
 import { router} from 'expo-router';
 import Zoom from 'react-native-zoom-reanimated';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 // import { style } from './styles';
 import { Contador } from '../../components/contador';
+import { fetchRandomLamina } from '../../service/laminas';
+import loading_styles from '../styles/loading_styles';
+import { URL_ADIANTI } from '../../constants/global_constants';
 
+type Lamina = {
 
+  id: string;
+  imagem: string;
+
+};
 
 export default function Contagem() {
 
-  const handleFinish = (contador: Contador) => {
-    Alert.alert('Resultado', `
-        Pontos: ${contador.pontos}
-        Celula 1: ${contador.celula1}
-        Celula 2: ${contador.celula2}
-        Celula 3: ${contador.celula3}
-        Celula 4: ${contador.celula4}
-        Celula 5: ${contador.celula5}
-        Celula 6: ${contador.celula6}
-        `)
+  const [lamina, setLamina] = useState<Lamina | null>(null);
+
+  const loadRandomLamina = async () => {
+    const randomLamina = await fetchRandomLamina();
+    if (randomLamina) {
+      setLamina(randomLamina);
+    } else {
+      Alert.alert('Erro', 'Nenhuma lâmina encontrada.');
+    }
+  };
+
+  useEffect(() => {
+    loadRandomLamina();
+  }, []);
+
+  if (!lamina) {
+    return (
+      <View style={loading_styles.loadingContainer}>
+        <Text style={loading_styles.loadingText}>Carregando...</Text>
+      </View>
+    );
   }
+
+
+  const handleFinish = (contador: {
+    pontos: number;
+    neutrofilos: number;
+    monocitos: number;
+    eosilofilos: number;
+    basofilos: number;
+    linfocitos_t: number;
+    linfocitos_a: number;
+  }) => {
+
+    const lamina_id = lamina.id;
+
+    router.push({
+      pathname: '../../pages/resultado/',
+      params: {
+        lamina_id,
+        pontos: contador.pontos,
+        neutrofilos: contador.neutrofilos,
+        monocitos: contador.monocitos,
+        eosilofilos: contador.eosilofilos,
+        basofilos: contador.basofilos,
+        linfocitos_t: contador.linfocitos_t,
+        linfocitos_a: contador.linfocitos_a,
+      },
+    });
+  };
 
   return (
     <GestureHandlerRootView>
 
       <View style={style.container}>
+
+      <View style={style.background_square}></View>
+      <View style={style.background_circle}></View>
+
+      <View style={style.title_container}>
+        <Text style={style.title}>Contagem de células</Text>
+      </View>
 
         <View style={style.imageContainer}>
 
@@ -33,14 +87,12 @@ export default function Contagem() {
             
             height: '100%',
             width: '100%',
-            // height: 400,
-            // height: Dimensions.get('window').width * 0.75,  
-            // backgroundColor:'red'
+            position: 'absolute',
             
             }}>
 
             <Image 
-              source={require('../../images/image.png')} 
+              source={{ uri: `${URL_ADIANTI}/${lamina.imagem}` }} 
               style={style.imagem} 
             />
 
@@ -61,104 +113,69 @@ export default function Contagem() {
 const style = StyleSheet.create({
     
   container: {
-    height: '100%',
-    width: '100%',
     flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: '#f7f7f7',
     padding: 16,
-    // backgroundColor: 'grey',
-    gap: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
-  
-
-  imageContainer:{
-    marginTop: 40,
-    borderRadius: 25,
-    width: '70%',
-    height: '35%',
-    // backgroundColor: 'black',
-  },
-
-  imagem: {
+  background_square: {
     width: Dimensions.get('window').width,
-    height: Dimensions.get('window').width * 0.75,      
-    // aspectRatio: 1,         
-    // resizeMode: 'contain',
-    marginTop: '10%',
-    // backgroundColor: 'green',
+    height: Dimensions.get('window').height * 0.35,
+    position: 'absolute',
+    top: 0,
+    zIndex: -1,
+    backgroundColor: '#4CAF50',
   },
 
-  contadorContainer: {
-    height: '60%',
-    width: '100%',
-    // backgroundColor: 'grey',
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
+  background_circle: {
+    position: 'absolute',
+    top: '23%',
+    width: Dimensions.get('window').width * 0.8,
+    height: Dimensions.get('window').height * 0.3,
+    borderRadius: 100,
+    backgroundColor: '#4CAF50',
+    zIndex: -1,
+  },
+
+
+  title_container: {
+    marginTop: 20,
     alignItems: 'center',
-    gap: 20,
-    padding: 5,
-
+    marginBottom: 20,
   },
 
-  contadorText: {
-    textAlign: 'center',
-    height: '5%',
-    width: '50%',
-    fontSize: 20,
-    // backgroundColor: 'purple',
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#fff',
+    marginBottom: 10,
+  },
+
+  imageContainer: {
+    width: Dimensions.get('window').width * 0.7,
+    height: Dimensions.get('window').height * 0.3,
+    backgroundColor: 'black',
+    borderRadius: 16,
+    overflow: 'hidden',
+    marginBottom: 20,
+    elevation: 20, // Para Android, sombra mais intensa
+    shadowColor: '#000', // Cor da sombra
+    shadowOffset: { width: 0, height: 8 }, // Deslocamento mais pronunciado
+    shadowOpacity: 0.5, // Aumentar opacidade da sombra
+    shadowRadius: 10,
+  },
+  imagem: {
+    width: 500,
+    height: 500,
+    resizeMode: 'contain',
+    // objectFit: 'contain',
   },
 
   
-  buttons_container: {
-    // position: 'relative',
-    padding: '2%',
-    display: 'flex',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 20,
-    justifyContent: 'center',
-    // alignItems: 'flex-end',
-    alignContent: 'center',
-    height: '55%',
-    width: '80%',
-    // backgroundColor: 'green',
-  },
 
-  buttons: {
-    height: '23%',
-    width: '45%',
-    backgroundColor: '#86fa8f',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 10,
-  },
-
-  actions_container: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-evenly',
-    height: '15%',
-    width: '100%',
-    marginTop: 'auto',
-    marginBottom: 20,
-    // backgroundColor: 'red',
-  },
-
-  actions:{
-    height: '60%',
-    width: '40%',
-    backgroundColor: '#55a05b',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 10,
-  },
+  
 
 });
 

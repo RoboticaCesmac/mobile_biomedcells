@@ -101,14 +101,14 @@ export default function Comparacao() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Resultados da Contagem</Text>
+      <Text style={styles.title}>Revisão de laudo</Text>
 
       {/* Tabela de resultados */}
       <View style={styles.table}>
         <View style={styles.row}>
           <Text style={styles.cellHeader}>Células</Text>
           <Text style={styles.cellHeader}>Contagem</Text>
-          <Text style={styles.cellHeader}>Gabarito</Text>
+          <Text style={styles.cellHeader}>Lâmina</Text>
         </View>
 
         {/* Célula 1 */}

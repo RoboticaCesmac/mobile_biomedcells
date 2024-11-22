@@ -23,8 +23,12 @@ export default function App() {
 
   };
 
-  const handleTeste = () => {
-    router.push("/service/laminas")
+  const handleAtlas = () => {
+    router.push("/pages/atlas")
+  };
+
+  const handleLaudo = () => {
+    router.push("/pages/laudo")
   };
 
   return (
@@ -60,7 +64,7 @@ export default function App() {
               <TouchableOpacity 
                 
                 style={style.button}
-                onPress={handleTeste}
+                onPress={handleAtlas}
                 >
 
                 <Text>Atlas</Text>
@@ -80,7 +84,7 @@ export default function App() {
 
             <View style={style.button_div}>
 
-              <TouchableOpacity style={style.button} onPress={handlePress}>
+              <TouchableOpacity style={style.button} onPress={handleLaudo}>
                 <Text>Liberação de laudo</Text>
 
               </TouchableOpacity>
