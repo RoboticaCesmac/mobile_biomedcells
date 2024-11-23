@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Button , TouchableOpacity, ActivityIndicator} from 'react-native';
+import { View, Text, StyleSheet, ImageBackground , TouchableOpacity, ActivityIndicator, Dimensions} from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { fetchLaminaById } from '../../service/laminas';
 import { router } from 'expo-router';
@@ -101,6 +101,15 @@ export default function Comparacao() {
 
   return (
     <View style={styles.container}>
+
+      <View style={styles.background_image_top}>
+        <ImageBackground source={require('../../images/waves2.png')} style={styles.image_top}/>
+      </View>
+
+      <View style={styles.background_image_bottom}>
+        <ImageBackground source={require('../../images/waves1.png')} style={styles.image_bottom}/>
+      </View>
+
       <Text style={styles.title}>Resultados da Contagem</Text>
 
       {/* Tabela de resultados */}
@@ -174,7 +183,7 @@ export default function Comparacao() {
       </View>
 
       <TouchableOpacity style={styles.actions}  onPress={goToHome}>
-        <Text>Menu principal</Text>
+        <Text style={styles.button_text}>Menu principal</Text>
       </TouchableOpacity>
     </View>
   );
@@ -187,13 +196,47 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 20,
   },
+
+  background_image_top: {
+    position: 'absolute',
+    top: 0,
+    width: Dimensions.get('window').width,
+    height: '30%',
+  },
+
+  background_image_bottom: {
+    position: 'absolute',
+    bottom: 0,
+    width: Dimensions.get('window').width,
+    height: '30%',
+    transform: [{ rotate: '180deg' }],
+  },
+
+  image_top: {
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height * 0.8,
+    objectFit: 'cover',
+  },
+
+  image_bottom: {
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height * 0.7,
+    objectFit: 'cover',
+  },
+
   title: {
     fontSize: 24,
-    marginBottom: 20,
+    fontWeight: 'bold',
+    color: '#fff',
+    marginBottom: '20%',
   },
   table: {
     width: '100%',
+    padding: 20,
     marginBottom: 20,
+    backgroundColor: '#fff',
+    borderRadius: 25,
+    elevation: 15,
   },
   row: {
     flexDirection: 'row',
@@ -224,10 +267,18 @@ const styles = StyleSheet.create({
   actions:{
     height: '5%',
     width: '40%',
-    backgroundColor: '#55a05b',
+    backgroundColor: '#4caf50ab',
+    // backgroundColor: '#4caf50ab',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 10,
+  },
+
+  button_text: {
+    fontSize: 18,
+    color: '#2b632ec9',
+    // color: '#2b632ec9',
+    fontWeight: 'bold',
   },
 });

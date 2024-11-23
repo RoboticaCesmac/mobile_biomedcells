@@ -77,6 +77,12 @@ export default function Contagem() {
       <View style={style.background_square}></View>
       <View style={style.background_circle}></View>
 
+
+      <Image 
+        style={style.image_teste}
+        source={require('../../images/waves2.png')}
+      />
+
       <View style={style.title_container}>
         <Text style={style.title}>Contagem de células</Text>
       </View>
@@ -118,6 +124,13 @@ const style = StyleSheet.create({
     padding: 16,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+
+  image_teste: {
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height * 0.35,
+    position: 'absolute',
+    top: 0,
   },
 
   background_square: {

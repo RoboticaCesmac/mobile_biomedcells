@@ -68,8 +68,7 @@ export function Contador ({onFinish}: ContadorProps) {
     const resetar = () => setContador({pontos: 0, neutrofilos: 0, monocitos: 0, eosilofilos: 0, basofilos: 0, linfocitos_t: 0, linfocitos_a: 0})
 
     const goToHome = () => {
-      router.push("../../")
-  
+      router.back();
     };
 
     const handleFinish = () => {
@@ -178,12 +177,12 @@ const style = StyleSheet.create({
     width: '100%',
     // backgroundColor: 'grey',
     flex: 1,
+    // display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
     gap: 20,
     padding: 5,
-
   },
 
   contadorText: {
@@ -213,9 +212,9 @@ const style = StyleSheet.create({
   },
 
   buttons: {
-    height: '23%',
+    height: Dimensions.get('window').height * 0.06,
     width: '45%',
-    backgroundColor: '#86fa8f',
+    backgroundColor: '#72bf75f0',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -229,6 +228,7 @@ const style = StyleSheet.create({
   },
 
   actions_container: {
+    // position:'static',
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
@@ -241,9 +241,9 @@ const style = StyleSheet.create({
   },
 
   actions:{
-    height: '60%',
+    height: Dimensions.get('window').height * 0.05,
     width: '40%',
-    backgroundColor: '#55a05b',
+    backgroundColor: '#419544',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',

@@ -1,7 +1,8 @@
 // src/components/ListaCelulas.tsx
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, Image, StyleSheet, Dimensions, ScrollView } from 'react-native';
+import { View, Text, FlatList, Image, StyleSheet, Dimensions, ScrollView , ImageBackground, TouchableOpacity} from 'react-native';
 import { fetchAllCelulas } from '../../service/celulas';
+import { router} from 'expo-router';
 
 type Celula = {
   id: number;
@@ -36,14 +37,24 @@ const ListaCelulas = () => {
     return imagens;
   };
 
+  const goBack = () => {
+    router.back();
+  };
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Atlas</Text>
+      <View style={styles.background}>
+        <ImageBackground source={require('../../images/waves2.png')} style={styles.background_image}/>
+      </View>
+
+      <Text style={styles.title}>Atlas da células</Text>
       <FlatList
         data={celulas}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <View style={styles.celulaItem}>
+            <Text style={styles.celulaText}>{item.nome}</Text>
+            <Text style={styles.descricaoText}>{item.descricao}</Text>
             <ScrollView horizontal contentContainerStyle={styles.imagesContainer}>
               {getImagens(item).map((imagem, index) => (
                 <Image
@@ -53,12 +64,16 @@ const ListaCelulas = () => {
                 />
               ))}
             </ScrollView>
-            <Text style={styles.celulaText}>{item.nome}</Text>
-            <Text style={styles.descricaoText}>{item.descricao}</Text>
+
           </View>
         )}
         contentContainerStyle={styles.listContent}
       />
+
+      <TouchableOpacity style={styles.button}  onPress={goBack}>
+        <Text style={styles.button_text}>Menu Principal</Text>
+      </TouchableOpacity>
+
     </View>
   );
 };
@@ -70,57 +85,98 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingVertical: 24,
     paddingHorizontal: 16,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#fff',
     alignItems: 'center',
   },
+  
+  background: {
+    position: 'absolute',
+    top: 0,
+    width: Dimensions.get('window').width,
+    height: '30%',
+  },
+
+  background_image: {
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
+    objectFit: 'cover',
+  },
+
   title: {
-    fontSize: 24,
+    fontSize: 26,
     fontWeight: 'bold',
     marginTop: '15%',
     marginBottom: 20,
     textAlign: 'center',
-    color: '#333',
+    color: '#fff',
   },
+
   listContent: {
     paddingBottom: 20,
-    width: '100%',
+    // padding: 5,
+    width: Dimensions.get('window').width * 0.93 ,
+    gap: 5,
   },
   celulaItem: {
     flexDirection: 'column',
     alignItems: 'center',
     backgroundColor: '#fff',
-    padding: 16,
+    padding: 10,
     marginBottom: 12,
     borderRadius: 12,
+    gap: 10,
     width: width * 0.9,
     alignSelf: 'center',
     shadowColor: '#000',
     shadowOpacity: 0.1,
     shadowOffset: { width: 0, height: 1 },
     shadowRadius: 2,
-    elevation: 3,
+    elevation: 5,
   },
   imagesContainer: {
     flexDirection: 'row',
     marginBottom: 12,
     justifyContent: 'space-between',
     width: '100%',
+    // backgroundColor: 'red',
   },
   image: {
     width: 100,
     height: 100,
     borderRadius: 8,
     marginRight: 8,
+    elevation: 10,
   },
   celulaText: {
-    fontSize: 18,
-    color: '#333',
+    fontSize: 20,
+    color: '#4CAF50',
     fontWeight: 'bold',
-    marginBottom: 8,
+    borderBottomColor: 'grey',
+    borderBottomWidth: 1,
+    // marginBottom: 8,
+    // backgroundColor: 'blue',
   },
   descricaoText: {
-    fontSize: 14,
+    fontSize: 16,
     color: '#555',
     textAlign: 'center',
+    // backgroundColor: 'green',
   },
+
+  button: {
+    backgroundColor: '#72bf75f0', 
+    paddingVertical: 12,        
+    paddingHorizontal: 20,      
+    borderRadius: 8,            
+    alignItems: 'center',       
+    marginTop: 20,              
+    elevation: 3,               
+  },
+
+  button_text: {
+    fontSize: 18,
+    color: '#235025',
+    fontWeight: 'bold',
+  },
+
 });
