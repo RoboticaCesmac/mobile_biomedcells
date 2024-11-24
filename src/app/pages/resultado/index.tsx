@@ -195,6 +195,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
+    // backgroundColor: 'red',
   },
 
   background_image_top: {
@@ -256,8 +257,9 @@ const styles = StyleSheet.create({
     flex: 1,
     textAlign: 'center',
   },
+
   cellResultado: {
-    color: 'red',
+    color: '#4CAF50',
     flex: 1,
     textAlign: 'center',
     fontSize: 16,
@@ -267,7 +269,8 @@ const styles = StyleSheet.create({
   actions:{
     height: '5%',
     width: '40%',
-    backgroundColor: '#4caf50ab',
+    marginTop: 10,
+    backgroundColor: '#72bf75f0',
     // backgroundColor: '#4caf50ab',
     display: 'flex',
     alignItems: 'center',
@@ -277,7 +280,7 @@ const styles = StyleSheet.create({
 
   button_text: {
     fontSize: 18,
-    color: '#2b632ec9',
+    color: '#fff',
     // color: '#2b632ec9',
     fontWeight: 'bold',
   },

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Dimensions, ScrollView, Alert, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, ScrollView, Alert, TouchableOpacity, ImageBackground } from 'react-native';
 import { fetchRandomLamina } from '../../service/laminas';
 import { router} from 'expo-router';
 
@@ -76,9 +76,19 @@ const LaudoScreen = () => {
     });
   };
 
+  const goBack = () => {
+    router.back();
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>Laudo</Text>
+
+      <View style={styles.background}>
+        <ImageBackground source={require('../../images/waves1.png')} style={styles.background_image}/>
+      </View>
+
+
+      <Text style={styles.title}>Análise de Laudo</Text>
 
       {/* Tabela Eritograma */}
       <View style={styles.table}>
@@ -173,9 +183,17 @@ const LaudoScreen = () => {
         </View>
       </View>
 
-      <TouchableOpacity style={styles.buttonReview}  onPress={goToReview}>
-        <Text style={styles.headerText}>Revisar Lâmina</Text>
-      </TouchableOpacity>
+      <View style={styles.buttonContainer}>
+        {/* Botão Revisar Lâmina */}
+        <TouchableOpacity style={styles.buttonReview} onPress={goToReview}>
+          <Text style={styles.buttonText}>Revisar Lâmina</Text>
+        </TouchableOpacity>
+
+        {/* Botão Voltar */}
+        <TouchableOpacity style={styles.buttonBack} onPress={goBack}>
+          <Text style={styles.buttonText}>Menu Principal</Text>
+        </TouchableOpacity>
+      </View>
 
 
     </ScrollView>
@@ -191,13 +209,30 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     backgroundColor: '#f5f5f5',
   },
+
+  background: {
+    position: 'absolute',
+    top: 0,
+    width: Dimensions.get('window').width,
+    height: '30%',
+  },
+
+  background_image: {
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
+    objectFit: 'cover',
+  },
+
+
   title: {
     marginTop: '15%',
     fontSize: 24,
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 20,
+    color: '#fff',
   },
+
   table: {
     width: width - 32,
     backgroundColor: '#ffffff',
@@ -210,6 +245,7 @@ const styles = StyleSheet.create({
     elevation: 5,
     marginBottom: 40,
   },
+
   tableHeader: {
     flexDirection: 'row',
     backgroundColor: '#4CAF50',
@@ -218,28 +254,33 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: '#ddd',
   },
+
   headerText: {
     fontSize: 18,
     color: '#fff',
     fontWeight: 'bold',
   },
+
   tableRow: {
     flexDirection: 'row',
     padding: 10,
     borderBottomWidth: 1,
     borderColor: '#ddd',
   },
+
   cellText: {
     fontSize: 16,
     color: '#333',
     flex: 1, 
     textAlign: 'center',
   },
+
   cellHeader: {
     fontWeight: 'bold',
     backgroundColor: '#e0e0e0',
     paddingVertical: 5,
   },
+
   tableRowEritograma: {
     flexDirection: 'row',
     padding: 10,
@@ -247,6 +288,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: '#ddd',
   },
+
   cellTextEritograma: {
     fontSize: 16,
     color: '#333',
@@ -264,18 +306,43 @@ const styles = StyleSheet.create({
     color: '#333',
   },
 
+  buttonContainer: {
+    flexDirection: 'row', // Alinha os botões em linha
+    // justifyContent: 'space-between',
+    alignItems: 'center',
+    // width: '80%', // Define a largura total da área dos botões
+  },
   buttonReview: {
-    backgroundColor: '#4CAF50', 
-    paddingVertical: 12,        
-    paddingHorizontal: 20,      
-    borderRadius: 8,            
-    alignItems: 'center',       
-    marginTop: 20,              
-    shadowColor: '#000',        
-    shadowOffset: { width: 0, height: 2 }, 
-    shadowOpacity: 0.2,         
-    shadowRadius: 4,            
-    elevation: 3,               
+    backgroundColor: '#72bf75f0',
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 3,
+    marginHorizontal: 10, // Espaçamento lateral entre os botões
+    flex: 1, // O botão se ajustará proporcionalmente ao espaço
+  },
+  buttonBack: {
+    backgroundColor: '#72bf75f0',
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 3,
+    marginHorizontal: 10,
+    flex: 1, // O botão se ajustará proporcionalmente ao espaço
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 
 });

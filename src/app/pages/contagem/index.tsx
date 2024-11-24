@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Button, Image, StyleSheet, TouchableOpacity, ScrollView, Dimensions, Alert } from 'react-native';
+import { View, Text, ImageBackground, Image, StyleSheet, TouchableOpacity, ScrollView, Dimensions, Alert } from 'react-native';
 import { router} from 'expo-router';
 import Zoom from 'react-native-zoom-reanimated';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -75,13 +75,11 @@ export default function Contagem() {
       <View style={style.container}>
 
       <View style={style.background_square}></View>
-      <View style={style.background_circle}></View>
 
+      <View style={style.background_image_bottom}>
+        <ImageBackground source={require('../../images/waves4.png')} style={style.image_bottom}/>
+      </View>
 
-      <Image 
-        style={style.image_teste}
-        source={require('../../images/waves2.png')}
-      />
 
       <View style={style.title_container}>
         <Text style={style.title}>Contagem de células</Text>
@@ -126,30 +124,30 @@ const style = StyleSheet.create({
     alignItems: 'center',
   },
 
-  image_teste: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height * 0.35,
-    position: 'absolute',
-    top: 0,
-  },
-
   background_square: {
     width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height * 0.35,
+    height: '52.2%',
     position: 'absolute',
     top: 0,
     zIndex: -1,
     backgroundColor: '#4CAF50',
+    borderBottomLeftRadius: 100,
+    borderBottomRightRadius: 100,
+    elevation: 10,
   },
 
-  background_circle: {
+  background_image_bottom: {
     position: 'absolute',
-    top: '23%',
-    width: Dimensions.get('window').width * 0.8,
-    height: Dimensions.get('window').height * 0.3,
-    borderRadius: 100,
-    backgroundColor: '#4CAF50',
-    zIndex: -1,
+    bottom: 0,
+    width: Dimensions.get('window').width,
+    height: '30%',
+    transform: [{ rotate: '180deg' }],
+  },
+
+  image_bottom: {
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height * 0.57,
+    objectFit: 'cover',
   },
 
 

@@ -117,6 +117,7 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width * 0.93 ,
     gap: 5,
   },
+  
   celulaItem: {
     flexDirection: 'column',
     alignItems: 'center',
@@ -133,6 +134,7 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     elevation: 5,
   },
+
   imagesContainer: {
     flexDirection: 'row',
     marginBottom: 12,
@@ -175,7 +177,7 @@ const styles = StyleSheet.create({
 
   button_text: {
     fontSize: 18,
-    color: '#235025',
+    color: '#fff',
     fontWeight: 'bold',
   },
 

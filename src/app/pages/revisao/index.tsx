@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Image, StyleSheet, Alert, Dimensions, ActivityIndicator, TouchableOpacity, Modal, TextInput } from 'react-native';
+import { View, Text, Image, StyleSheet, KeyboardAvoidingView ,ImageBackground, Dimensions, ActivityIndicator, TouchableOpacity, Modal, TextInput, ScrollView } from 'react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import Zoom from 'react-native-zoom-reanimated';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -88,59 +88,65 @@ export default function Revisao() {
   }
 
   return (
-    <GestureHandlerRootView style={style.container}>
     
-      <View style={style.background_square}></View>
+      <GestureHandlerRootView style={style.container}>
+      
+        <View style={style.background_square}></View>
 
-      <View style={style.title_container}>
-        <Text style={style.title}>Revisão da Lâmina</Text>
-      </View>
+        <View style={style.background_image_bottom}>
+          <ImageBackground source={require('../../images/waves4.png')} style={style.image_bottom}/>
+        </View>
 
-      <View style={style.imageContainer}>
-        <Zoom
-          style={{
-            height: '100%',
-            width: '100%',
-            position: 'absolute',
-          }}
-        >
-          <Image
-            source={{ uri: `${URL_ADIANTI}/${lamina.imagem}` }}
-            style={style.imagem}
-          />
-        </Zoom>
-      </View>
+        <View style={style.title_container}>
+          <Text style={style.title}>Revisão da Lâmina</Text>
+        </View>
 
-      <Contador onFinish={handleFinish} />
-
-      <Modal
-        animationType="slide"
-        transparent
-        visible={modalVisible}
-        onRequestClose={() => setModalVisible(false)}
-      >
-        <View style={modalStyles.overlay}>
-          <View style={modalStyles.modalContainer}>
-            <Text style={modalStyles.modalTitle}>Adicionar Observação</Text>
-            <TextInput
-              style={modalStyles.input}
-              placeholder="Digite sua observação aqui..."
-              placeholderTextColor="#888"
-              value={observacao}
-              onChangeText={setObservacao}
+        <View style={style.imageContainer}>
+          <Zoom
+            style={{
+              height: '100%',
+              width: '100%',
+              position: 'absolute',
+            }}
+          >
+            <Image
+              source={{ uri: `${URL_ADIANTI}/${lamina.imagem}` }}
+              style={style.imagem}
             />
-            <View style={modalStyles.buttonContainer}>
-              <TouchableOpacity
-                style={modalStyles.buttonConfirm}
-                onPress={() => handleSubmitObservacao(observacao)} // Passa a observação como string
-              >
-                <Text style={modalStyles.buttonText}>Confirmar</Text>
-              </TouchableOpacity>
+          </Zoom>
+        </View>
+
+        <Contador onFinish={handleFinish} />
+
+        <Modal
+          animationType="slide"
+          transparent
+          visible={modalVisible}
+          onRequestClose={() => setModalVisible(false)}
+        >
+          <View style={modalStyles.overlay}>
+            <View style={modalStyles.modalContainer}>
+              <Text style={modalStyles.modalTitle}>Adicionar Observação</Text>
+              <TextInput
+                style={modalStyles.input}
+                placeholder="Digite sua observação aqui..."
+                placeholderTextColor="#888"
+                value={observacao}
+                onChangeText={setObservacao}
+              />
+              <View style={modalStyles.buttonContainer}>
+                <TouchableOpacity
+                  style={modalStyles.buttonConfirm}
+                  onPress={() => handleSubmitObservacao(observacao)} // Passa a observação como string
+                >
+                  <Text style={modalStyles.buttonText}>Confirmar</Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
-        </View>
-      </Modal>
-    </GestureHandlerRootView>
+        </Modal>
+      </GestureHandlerRootView>
+
   );
 }
 
@@ -164,6 +170,21 @@ const style = StyleSheet.create({
     borderBottomRightRadius: 100,
     elevation: 10,
   },
+
+  background_image_bottom: {
+    position: 'absolute',
+    bottom: 0,
+    width: Dimensions.get('window').width,
+    height: '30%',
+    transform: [{ rotate: '180deg' }],
+  },
+
+  image_bottom: {
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height * 0.57,
+    objectFit: 'cover',
+  },
+
 
   title_container: {
     marginTop: 20,

@@ -102,7 +102,7 @@ export default function Comparacao() {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView style={styles.container} contentContainerStyle={styles.container_elements}>
 
       <View style={styles.background_image_top}>
         <ImageBackground source={require('../../images/waves3.png')} style={styles.image_top}/>
@@ -209,12 +209,22 @@ export default function Comparacao() {
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
+    flex: 1,
     // height: Dimensions.get('window').height,
-    width: Dimensions.get('window').width,
+    // height: '100%',
+    // width: Dimensions.get('window').width,
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    // overflow: 'scroll',
+    // backgroundColor: 'darkgreen',
+  },
+
+  container_elements: {
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
+    // width: '100%',
+    
   },
 
   background_image_top: {
@@ -284,7 +294,7 @@ const styles = StyleSheet.create({
   },
 
   cellResultado: {
-    color: 'red',
+    color: '#4CAF50',
     flex: 1,
     textAlign: 'center',
     fontSize: 16,
@@ -294,16 +304,18 @@ const styles = StyleSheet.create({
   actions:{
     height: '5%',
     width: '40%',
-    backgroundColor: '#396d3d',
+    backgroundColor: '#fff',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 10,
+    elevation: 20,
+    marginBottom: 30,
   },
 
   button_text: {
     fontSize: 18,
-    color: '#fff',
+    color: '#396d3d',
     // color: '#2b632ec9',
     fontWeight: 'bold',
   },

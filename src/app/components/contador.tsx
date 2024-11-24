@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import { View, Text, Button, Image, StyleSheet, TouchableOpacity, ScrollView, Dimensions, Alert } from 'react-native';
 import { router} from 'expo-router';
 
@@ -14,12 +14,16 @@ export type Contador = {
     linfocitos_a: number,
 }
 
+
 //AO FINALIZAR A CONTAGEM RETORNA OS DADOS
 export interface ContadorProps {
     onFinish: (contador: Contador) => void
 }
 
 export function Contador ({onFinish}: ContadorProps) {
+
+  // const [containerHeight, setContainerHeight] = useState(0);
+  // const minHeight = 50;
 
     const [ contador, setContador ] = React.useState<Contador>({
         pontos: 0,
@@ -67,7 +71,7 @@ export function Contador ({onFinish}: ContadorProps) {
     // --------
     const resetar = () => setContador({pontos: 0, neutrofilos: 0, monocitos: 0, eosilofilos: 0, basofilos: 0, linfocitos_t: 0, linfocitos_a: 0})
 
-    const goToHome = () => {
+    const goBack = () => {
       router.back();
     };
 
@@ -88,92 +92,94 @@ export function Contador ({onFinish}: ContadorProps) {
 
     return (
 
-      <View style={style.contadorContainer}>
+      <ScrollView>
+        <View style={style.contadorContainer}>
 
           <Text style={style.contadorText}>Total: {contador.pontos}</Text>
 
-          <View style={style.buttons_container}>
-            
-            <TouchableOpacity 
-                style={[style.buttons, contador.pontos >= 100 && { opacity: 0.5 }]}
-                onPress={() => adicionar('tipo1')}
-                disabled={contador.pontos >= 100}
-            >
-              <Text>Neutrofilos</Text>
+            <View style={style.buttons_container}>
+              
+              <TouchableOpacity 
+                  style={[style.buttons, contador.pontos >= 100 && { opacity: 0.5 }]}
+                  onPress={() => adicionar('tipo1')}
+                  disabled={contador.pontos >= 100}
+              >
+                <Text style={style.buttons_text}>Neutrofilos</Text>
 
-            </TouchableOpacity>
+              </TouchableOpacity>
 
-            <TouchableOpacity 
-                style={[style.buttons, contador.pontos >= 100 && { opacity: 0.5 }]}
-                onPress={() => adicionar('tipo2')}
-                disabled={contador.pontos >= 100}
-            >
-              <Text>Monocitos</Text>
+              <TouchableOpacity 
+                  style={[style.buttons, contador.pontos >= 100 && { opacity: 0.5 }]}
+                  onPress={() => adicionar('tipo2')}
+                  disabled={contador.pontos >= 100}
+              >
+                <Text style={style.buttons_text}>Monocitos</Text>
 
-            </TouchableOpacity>
+              </TouchableOpacity>
 
-            <TouchableOpacity 
-                style={[style.buttons, contador.pontos >= 100 && { opacity: 0.5 }]}
-                onPress={() => adicionar('tipo3')}
-                disabled={contador.pontos >= 100}
-            >
-              <Text>Eosilofilos</Text>
+              <TouchableOpacity 
+                  style={[style.buttons, contador.pontos >= 100 && { opacity: 0.5 }]}
+                  onPress={() => adicionar('tipo3')}
+                  disabled={contador.pontos >= 100}
+              >
+                <Text style={style.buttons_text}>Eosilofilos</Text>
 
-            </TouchableOpacity>
-
-
-            <TouchableOpacity 
-                style={[style.buttons, contador.pontos >= 100 && { opacity: 0.5 }]}
-                onPress={() => adicionar('tipo4')}
-                disabled={contador.pontos >= 100}
-            >
-              <Text>Basofilos</Text>
-
-            </TouchableOpacity>
-
-            <TouchableOpacity 
-                style={[style.buttons, contador.pontos >= 100 && { opacity: 0.5 }]}
-                onPress={() => adicionar('tipo5')}
-                disabled={contador.pontos >= 100}
-            >
-              <Text>Linf. T</Text>
-
-            </TouchableOpacity>
+              </TouchableOpacity>
 
 
-            <TouchableOpacity 
-                style={[style.buttons, contador.pontos >= 100 && { opacity: 0.5 }]}
-                onPress={() => adicionar('tipo6')}
-                disabled={contador.pontos >= 100}
-            >
-              <Text>Linf. A</Text>
+              <TouchableOpacity 
+                  style={[style.buttons, contador.pontos >= 100 && { opacity: 0.5 }]}
+                  onPress={() => adicionar('tipo4')}
+                  disabled={contador.pontos >= 100}
+              >
+                <Text style={style.buttons_text}>Basofilos</Text>
 
-            </TouchableOpacity>
+              </TouchableOpacity>
+
+              <TouchableOpacity 
+                  style={[style.buttons, contador.pontos >= 100 && { opacity: 0.5 }]}
+                  onPress={() => adicionar('tipo5')}
+                  disabled={contador.pontos >= 100}
+              >
+                <Text style={style.buttons_text}>Linf. T</Text>
+
+              </TouchableOpacity>
 
 
-          </View>
+              <TouchableOpacity 
+                  style={[style.buttons, contador.pontos >= 100 && { opacity: 0.5 }]}
+                  onPress={() => adicionar('tipo6')}
+                  disabled={contador.pontos >= 100}
+              >
+                <Text style={style.buttons_text}>Linf. A</Text>
 
-          <View style={style.actions_container}>
+              </TouchableOpacity>
 
-            <TouchableOpacity style={[style.actions, contador.pontos < 100 && { opacity: 0.5 }]} disabled={contador.pontos < 100} onPress={() => onFinish(contador)} >
-              <Text>Finalizar</Text>
-            </TouchableOpacity>
 
-            <TouchableOpacity style={style.actions}  onPress={goToHome}>
-              <Text>Voltar</Text>
-            </TouchableOpacity>
+            </View>
 
-          </View>
+            <View style={style.actions_container}>
+
+              <TouchableOpacity style={[style.actions, contador.pontos < 100 && { opacity: 0.5 }]} disabled={contador.pontos < 100} onPress={() => onFinish(contador)} >
+                <Text style={style.actions_text}>Finalizar</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity style={style.actions}  onPress={goBack}>
+                <Text style={style.actions_text}>Voltar</Text>
+              </TouchableOpacity>
+
+            </View>
 
         </View>
-
+      </ScrollView>
     );
 }
 
 const style = StyleSheet.create({
     
   contadorContainer: {
-    height: '60%',
+    // height: '60%',
+    height: Dimensions.get('window').height * 0.52,
     width: '100%',
     // backgroundColor: 'grey',
     flex: 1,
@@ -183,6 +189,7 @@ const style = StyleSheet.create({
     alignItems: 'center',
     gap: 20,
     padding: 5,
+    // overflow: 'scroll',
   },
 
   contadorText: {
@@ -207,7 +214,7 @@ const style = StyleSheet.create({
     // alignItems: 'flex-end',
     alignContent: 'center',
     height: '55%',
-    width: '80%',
+    width: '90%',
     // backgroundColor: 'green',
   },
 
@@ -227,6 +234,12 @@ const style = StyleSheet.create({
     
   },
 
+  buttons_text:{
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#fff',
+  },
+
   actions_container: {
     // position:'static',
     display: 'flex',
@@ -234,6 +247,7 @@ const style = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-evenly',
     height: '15%',
+    // height: 40,
     width: '100%',
     marginTop: 'auto',
     marginBottom: 20,
@@ -242,8 +256,9 @@ const style = StyleSheet.create({
 
   actions:{
     height: Dimensions.get('window').height * 0.05,
+    // height: 39,
     width: '40%',
-    backgroundColor: '#419544',
+    backgroundColor: '#fff',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -254,6 +269,12 @@ const style = StyleSheet.create({
     shadowOpacity: 0.2,         
     shadowRadius: 4,            
     elevation: 4,
+  },
+
+  actions_text:{
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#396d3d',
   },
 
 });

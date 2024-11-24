@@ -1,6 +1,6 @@
 import React from 'react';
 import { Icon } from '@rneui/themed';
-import { StyleSheet, Image , Dimensions} from "react-native";
+import { StyleSheet, Image , Dimensions, ImageBackground} from "react-native";
 import { router} from 'expo-router';
 // import { style } from "./styles";
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -37,10 +37,14 @@ export default function App() {
       
       <View style={style.body}>
 
+        <View style={style.background}>
+          <ImageBackground source={require('./images/waves2.png')} style={style.background_image}/>
+        </View>
+
+
         <View style={style.top_container}>
             {/* <Text>TOP DIV</Text> */}
 
-            {/* <Image style={style.background_image} source={require('../app/images/background_image2.png')}/> */}
 
             <View style={style.logo_container}>
             <Image style={style.logo_image} source={require('../app/images/logo_preta.png')}/>
@@ -97,12 +101,12 @@ export default function App() {
 
             <View style={style.button_div}>
 
-            <TouchableOpacity style={style.button} onPress={handleAtlas}>
+            {/* <TouchableOpacity style={style.button} onPress={handleAtlas}>
 
               <Image style={style.icon} source={require('../app/images/configuracoes.png')}/>
               <Text style={style.button_text}>Configurações</Text>
 
-            </TouchableOpacity>
+            </TouchableOpacity> */}
 
             </View>
 
@@ -126,15 +130,17 @@ const style = StyleSheet.create({
       width: "100%",
   },
 
+  background: {
+    position: 'absolute',
+    top: 0,
+    width: Dimensions.get('window').width,
+    height: '30%',
+  },
+
   background_image: {
-    width: 700,
-    height: 700,
-    // backgroundColor: 'red',
-    // objectFit: 'cover',
-    resizeMode: 'cover',
-    // transform: [{ rotate: '90deg' }],
-    zIndex: -1,
-    
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
+    objectFit: 'cover',
   },
 
   top_container: {
@@ -173,6 +179,7 @@ const style = StyleSheet.create({
       marginTop: 'auto',
       display: 'flex',
       alignItems: 'center',
+      justifyContent: 'center',
       gap: 6,
   },
 
@@ -206,6 +213,7 @@ const style = StyleSheet.create({
   button_text: {
     fontSize: 18,
     fontWeight: 'heavy',
+    color: '#4CAF50',
   },
 
   logo_container: {
