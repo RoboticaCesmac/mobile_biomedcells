@@ -55,7 +55,7 @@ export default function Contagem() {
     const lamina_id = lamina.id;
 
     router.push({
-      pathname: '../../pages/resultado/',
+      pathname: '../../pages/resultado_contagem/',
       params: {
         lamina_id,
         pontos: contador.pontos,

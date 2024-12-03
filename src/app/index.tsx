@@ -32,13 +32,18 @@ export default function App() {
     router.push("/pages/laudo")
   };
 
+  const handleSobre = () => {
+    router.push("/pages/sobre")
+  };
+  
+
   return (
     <GestureHandlerRootView>
       
       <View style={style.body}>
 
-        <View style={style.background}>
-          <ImageBackground source={require('./images/waves2.png')} style={style.background_image}/>
+        <View style={style.background} >
+          <ImageBackground source={require('./images/waves2.png')} style={style.background_image} />
         </View>
 
 
@@ -47,9 +52,14 @@ export default function App() {
 
 
             <View style={style.logo_container}>
-            <Image style={style.logo_image} source={require('../app/images/logo_preta.png')}/>
-
+              <TouchableOpacity style={style.logo_button} onPress={handleSobre}>
+                <Image
+                  style={style.logo_image}
+                  source={require('../app/images/logo_preta.png')}
+                />
+              </TouchableOpacity>
             </View>
+
             <View style={style.title_container}>
 
                 <Text style={style.title_text} >BioMedCells</Text>
@@ -226,6 +236,11 @@ const style = StyleSheet.create({
       borderRadius: 50,
       marginRight: 20,
 
+  },
+
+  logo_button: {
+    height: '100%',
+    width: '100%',
   },
 
   logo_image: {

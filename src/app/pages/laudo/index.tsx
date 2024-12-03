@@ -69,7 +69,7 @@ const LaudoScreen = () => {
 
   const goToReview = () => {
     router.push({
-      pathname: '../revisao/',
+      pathname: '../revisao_laudo/',
       params: {
         lamina_id: lamina.id
       },
