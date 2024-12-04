@@ -2,10 +2,7 @@ import React from 'react';
 import { Icon } from '@rneui/themed';
 import { StyleSheet, Image , Dimensions, ImageBackground} from "react-native";
 import { router} from 'expo-router';
-// import { style } from "./styles";
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-// import { Imagem, useImageService } from '../services/imagens';
-// import { useLaminaservice } from '../app/service/laminas';
 
 import { 
 
@@ -34,6 +31,11 @@ export default function App() {
 
   const handleSobre = () => {
     router.push("/pages/sobre")
+  };
+
+
+  const handleCalculadora = () => {
+    router.push("/pages/calculadora")
   };
   
 
@@ -111,12 +113,12 @@ export default function App() {
 
             <View style={style.button_div}>
 
-            {/* <TouchableOpacity style={style.button} onPress={handleAtlas}>
+            <TouchableOpacity style={style.button} onPress={handleCalculadora}>
 
-              <Image style={style.icon} source={require('../app/images/configuracoes.png')}/>
-              <Text style={style.button_text}>Configurações</Text>
+              <Image style={style.icon} source={require('../app/images/calculadora.png')}/>
+              <Text style={style.button_text}>Calculadora</Text>
 
-            </TouchableOpacity> */}
+            </TouchableOpacity>
 
             </View>
 

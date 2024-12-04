@@ -82,7 +82,7 @@ export default function Contagem() {
 
 
       <View style={style.title_container}>
-        <Text style={style.title}>Contagem de células</Text>
+        <Text style={style.title}>Contagem de Células</Text>
       </View>
 
         <View style={style.imageContainer}>
