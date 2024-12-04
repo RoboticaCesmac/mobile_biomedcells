@@ -1,1 +1,1 @@
-export const URL_ADIANTI = "http://192.168.15.10/biomedcells/projeto";
+export const URL_ADIANTI = "http://ip/biomedcells/projeto";
