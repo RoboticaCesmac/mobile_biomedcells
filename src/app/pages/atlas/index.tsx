@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, Image, StyleSheet, Dimensions, ScrollView , ImageBackground, TouchableOpacity} from 'react-native';
 import { fetchAllCelulas } from '../../service/celulas';
 import { router} from 'expo-router';
+import { URL_ADIANTI } from '../../constants/global_constants';
 
 type Celula = {
   id: number;
@@ -14,7 +15,6 @@ type Celula = {
 };
 
 const { width } = Dimensions.get('window');
-const URL_ADIANTI = "http://192.168.15.10/biomedcells/projeto"; // Base URL do servidor
 
 const ListaCelulas = () => {
   const [celulas, setCelulas] = useState<Celula[]>([]);

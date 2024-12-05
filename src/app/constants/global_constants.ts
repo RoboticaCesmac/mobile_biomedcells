@@ -1,1 +1,1 @@
-export const URL_ADIANTI = "http://ip/biomedcells/projeto";
+export const URL_ADIANTI = "http://ip/BioMedCellsAdmin";
