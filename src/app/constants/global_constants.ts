@@ -1,1 +1,1 @@
-export const URL_ADIANTI = "http://ip/BioMedCellsAdmin";
+export const URL_ADIANTI = process.env.EXPO_PUBLIC_API_URL;
