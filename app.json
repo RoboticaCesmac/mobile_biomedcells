@@ -10,15 +10,17 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#449c48"
     },
     "ios": {
       "supportsTablet": true
     },
     "android": {
+      "package": "com.citec.biomedcells",
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff",
+        "backgroundColor": "#449c48",
         "softwareKeyboardLayoutMode": "pan"
       }
     },
@@ -28,6 +30,14 @@
     },
     "plugins": [
       "expo-router"
-    ]
+    ],
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "0f5a2e77-ba11-4449-95d1-d676b18e29b9"
+      }
+    }
   }
 }
